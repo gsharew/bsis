@@ -51,6 +51,7 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
         <property name="jdbcUrl" value="${url}" />
         <property name="user" value="${username}" />
         <property name="password" value="${password}" />
+        <property name="initialPoolSize" value="${database.initialPoolSize}"/>
         <!-- these are C3P0 properties -->
         <property name="acquireIncrement" value="${database.acquireIncrement}" />
         <property name="minPoolSize" value="${database.minPoolSize}" />

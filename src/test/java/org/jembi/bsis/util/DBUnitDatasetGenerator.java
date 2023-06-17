@@ -23,9 +23,9 @@ public class DBUnitDatasetGenerator {
   static final String OUTPUT_FILENAME = "test/dataset/dataset.xml";
 
   /* your database access details */
-  static final String DATABASE_USER = "root";
+  static final String DATABASE_USER = "Getachew";
 
-  static final String DATABASE_PWD = "root";
+  static final String DATABASE_PWD = "Password";
 
   static final String DATABASE_URL = "jdbc:mysql://localhost:3306/bsis";
 

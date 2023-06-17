@@ -18,6 +18,7 @@ import org.jembi.bsis.service.UserCRUDService;
 import org.jembi.bsis.utils.PermissionConstants;
 import org.jembi.bsis.viewmodel.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -66,7 +67,8 @@ public class UserController {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("users", userFactory.createViewModels(userRepository.getAllUsers()));
     map.put("roles", roleFactory.createViewModels(roleRepository.getAllRoles()));
-    return map;
+    return new HashMap<>();
+    //return map;
   }
 
   @RequestMapping(value = "{id}", method = RequestMethod.GET)
@@ -75,6 +77,7 @@ public class UserController {
     Map<String, Object> map = new HashMap<String, Object>();
     User user = userRepository.findUserById(id);
     map.put("user", userFactory.createViewModel(user));
+//    return new HashMap<>();
     return map;
   }
 
