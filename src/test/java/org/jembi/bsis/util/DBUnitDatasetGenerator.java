@@ -23,7 +23,7 @@ public class DBUnitDatasetGenerator {
   static final String OUTPUT_FILENAME = "test/dataset/dataset.xml";
 
   /* your database access details */
-  static final String DATABASE_USER = "Getachew";
+  static final String DATABASE_USER = "root";
 
   static final String DATABASE_PWD = "Password";
 

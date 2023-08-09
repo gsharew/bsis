@@ -109,7 +109,6 @@ public class DonationController {
   @RequestMapping(method = RequestMethod.POST)
   @PreAuthorize("hasRole('" + PermissionConstants.ADD_DONATION + "')")
   public ResponseEntity<Map<String, Object>> addDonation(@RequestBody @Valid DonationBackingForm donationBackingForm) {
-
     // Create the donation
     DonationFullViewModel donationFullViewModel = donationControllerService.createDonation(donationBackingForm);
 
