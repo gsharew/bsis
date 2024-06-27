@@ -185,6 +185,7 @@ public class TestResultController {
     overviewFlags.put("hasPendingRepeatBloodTypingTests", false);
     overviewFlags.put("hasPendingBloodTypingConfirmations", false);
 
+
     for (BloodTestingRuleResult result : ruleResults) {
 
       Map<UUID, BloodTestResultFullViewModel> resultViewModelMap = result.getRecentTestResults();
@@ -241,6 +242,23 @@ public class TestResultController {
     HttpStatus responseStatus = HttpStatus.CREATED;
     Map<String, Object> responseMap = new HashMap<>();
     bloodTestsService.saveBloodTests(testResultsBackingForms.getTestOutcomesForDonations(), reEntry);
+    //listener
+    return new ResponseEntity<>(responseMap, responseStatus);
+  }
+
+  //result from middleware
+
+  @PreAuthorize("hasRole('" + PermissionConstants.ADD_TEST_OUTCOME + "')")
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<Map<String, Object>> saveTestResultsFromMiddleware(
+          @RequestBody @Valid List<BloodBankResults> bloodBankResults,
+          @RequestParam(value = "reEntry", required = false, defaultValue = "false") boolean reEntry) {
+
+    TestResultsBackingForms testResultsBackingForms = bloodBankResults.construct();
+    HttpStatus responseStatus = HttpStatus.CREATED;
+    Map<String, Object> responseMap = new HashMap<>();
+    bloodTestsService.saveBloodTests(testResultsBackingForms.getTestOutcomesForDonations(), reEntry);
+    //listener
     return new ResponseEntity<>(responseMap, responseStatus);
   }
 

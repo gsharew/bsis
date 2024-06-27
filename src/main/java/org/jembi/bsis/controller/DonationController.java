@@ -1,5 +1,6 @@
 package org.jembi.bsis.controller;
 
+import com.google.gson.Gson;
 import org.jembi.bsis.backingform.BloodTypingResolutionsBackingForm;
 import org.jembi.bsis.backingform.DonationBackingForm;
 import org.jembi.bsis.backingform.validator.BloodTypingResolutionsBackingFormValidator;
@@ -16,6 +17,7 @@ import org.jembi.bsis.repository.LocationRepository;
 import org.jembi.bsis.repository.PackTypeRepository;
 import org.jembi.bsis.service.DonationCRUDService;
 import org.jembi.bsis.service.FormFieldAccessorService;
+import org.jembi.bsis.service.HttpService;
 import org.jembi.bsis.utils.PermissionConstants;
 import org.jembi.bsis.viewmodel.DonationFullViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +26,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,6 +79,9 @@ public class DonationController {
   @Autowired
   private LocationFactory locationFactory;
 
+  @Autowired
+  private HttpService httpService;
+
   public DonationController() {
   }
 
@@ -106,12 +104,18 @@ public class DonationController {
     return map;
   }
 
+
+  @RequestMapping(value = "/check", method = RequestMethod.POST)
+  public void testIfItWorks(){
+    httpService.sendDonationInformationToPolyTechSpring("donation full information");
+  }
+
   @RequestMapping(method = RequestMethod.POST)
   @PreAuthorize("hasRole('" + PermissionConstants.ADD_DONATION + "')")
   public ResponseEntity<Map<String, Object>> addDonation(@RequestBody @Valid DonationBackingForm donationBackingForm) {
     // Create the donation
     DonationFullViewModel donationFullViewModel = donationControllerService.createDonation(donationBackingForm);
-
+//    httpService.sendDonationInformationToPolyTechSpring(new Gson().toJson(donationFullViewModel));
     // Populate the response map
     Map<String, Object> map = new HashMap<>();
     addEditSelectorOptions(map);

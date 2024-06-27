@@ -114,6 +114,7 @@ public class DonationBatchController {
     DonationBatch donationBatch = form.getDonationBatch();
     donationBatch.setIsDeleted(false);
     donationBatchRepository.addDonationBatch(donationBatch);
+    //send to polytech
     return new ResponseEntity<DonationBatchViewModel>(
         donationBatchViewModelFactory.createDonationBatchFullViewModel(donationBatch), HttpStatus.CREATED);
   }
